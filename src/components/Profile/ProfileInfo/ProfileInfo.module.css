@@ -1,0 +1,31 @@
+.content img{
+    width: 100%;
+}
+.descriptionBlock{
+    padding: 10px;
+    background: #ffffff;
+    display: grid;
+    grid-template-columns: 230px auto; 
+    grid-template-rows: 30px auto auto;
+}
+.description{
+    grid-column: 2;
+    grid-row: 2;
+}
+.name{
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    font-size: 25px;
+    font-weight: bold;
+    padding: 0;
+}
+.descriptionBlock img{
+    width: 200px;
+    margin-top: -100px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    grid-column: 1;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}

@@ -1,0 +1,31 @@
+img.avatar{
+    width: 100px;
+    margin-left: 25px;
+    border-radius: 50%;
+    grid-area: avatar;
+    padding: 0;
+}
+.followBtn{
+    background: #3333FF;
+    color: #f4f4f4;
+}
+.name{
+    grid-area: name;
+    box-sizing: border-box;
+    padding-top: 20px;
+}
+.status{
+    grid-area: status;
+}
+.wrap{
+    width: 100%;
+    display: grid;
+    margin-top: 10px;
+    grid-template-columns:150px auto;
+    grid-template-rows: 100px 80px;
+    grid-template-areas:
+    'avatar desc'
+    'btn status'
+    ;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}

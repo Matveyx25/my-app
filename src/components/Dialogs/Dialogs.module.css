@@ -1,0 +1,45 @@
+.dialogs{
+    display: grid;
+    grid-template-columns: 3fr 10fr;
+    grid-gap: 10px;
+}
+.dialogs_items{
+    margin: 10px;
+    margin-right: 0;
+    border-right: 2px solid rgba(0,0,0,0.1);
+    padding-right: 20px;
+}
+.dialog .active{
+    background: rgba(0,0,0,0.1);
+    border: 0;
+    padding: 12px;
+}
+.dialog a{
+    text-decoration: none;
+    color: black;
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    border-top: 1px solid rgba(0,0,0,0.06);
+    align-items: center;
+}
+.message{
+    padding: 10px 20px;
+    width: max-content;
+    border-radius: 10px 10px 10px 0;
+    background: #fff;
+    margin: 10px 10px;
+    border: 2px solid rgba(0,0,0,0.1);
+}
+.logo{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSo3C1IPw95QVZXr-MFKYGslgWsA4f0Qq7eNxCLsz85pccAafco") no-repeat;
+    background-size: cover;
+    margin-right: 10px;
+}
+.message_me{
+    background: aqua;
+}

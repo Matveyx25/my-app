@@ -1,26 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import {Route, withRouter, BrowserRouter} from "react-router-dom"
+import './App.css'
+import Navbar from './components/Navbar/Navbar'
+import Login from './components/Login/Login'
+import { initialazeApp } from './redux/app-reducer'
+import { connect, Provider } from 'react-redux'
+import { compose } from 'redux'
+import Preloader from './components/common/preloader/preloader'
+import store from './redux/redux-store'
+import UsersContainer from './components/Users/UsersContainer'
+import HeaderContainer from './components/Header/HeaderContainer' 
+import { Suspense } from 'react'
+import { withSuspense } from './hoc/withSuspense'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const DialogsContainer = React.lazy(() => import ('./components/Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import ('./components/Profile/ProfileContainer'));
+
+
+class App extends React.Component {
+  
+  componentDidMount(){
+    this.props.initialazeApp()
+  }
+  
+  render() {
+    if(!this.props.initialazed){
+      return <Preloader />
+    }
+    return (
+        <div className="app-wrapper">
+          <HeaderContainer />
+          <Navbar />
+          <div className="app-wrapper-content">
+            <Route path="/dialogs" render={withSuspense(DialogsContainer)}/>
+            <Route path="/profile/:userId?" render= {withSuspense(ProfileContainer)}/>
+            <Route path="/users" render={() => <UsersContainer />} />
+            <Route path="/login" render={() => <Login />} />
+          </div>
+        </div>
+    )
+  } 
 }
+  
+const mapStateToProps = (state) => ({
+  initialazed: state.app.initialazed
+})
 
-export default App;
+let AppContainer = compose(withRouter , connect(mapStateToProps , {initialazeApp}))(App)
+
+const MainApp = props => {
+  return <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <Provider store={store}>
+      <AppContainer/>
+    </Provider>
+  </BrowserRouter>
+} 
+
+export default MainApp
