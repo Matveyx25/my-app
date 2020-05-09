@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route, withRouter, BrowserRouter} from "react-router-dom"
+import {Route, withRouter, HashRouter} from "react-router-dom"
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
 import Login from './components/Login/Login'
@@ -49,11 +49,11 @@ const mapStateToProps = (state) => ({
 let AppContainer = compose(withRouter , connect(mapStateToProps , {initialazeApp}))(App)
 
 const MainApp = props => {
-  return <BrowserRouter basename={process.env.PUBLIC_URL}>
+  return <HashRouter basename={process.env.PUBLIC_URL}>
     <Provider store={store}>
       <AppContainer/>
     </Provider>
-  </BrowserRouter>
+  </HashRouter>
 } 
 
 export default MainApp
