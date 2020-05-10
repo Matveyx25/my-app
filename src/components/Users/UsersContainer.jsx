@@ -4,9 +4,10 @@ import Users from './Users'
 import Preloader from '../common/preloader/preloader.js'
 import { follow, unfollow, setCurrentPage, toggleIsFetching, toggleFollowingProgress, requestUsers } from '../../redux/users-reduser'
 import { getUsers , getPageSize , getTotalUsersCount , getCurrentPage , getFetching , getFollowinginProgress} from '../../redux/users-selectors'
+import { Component } from 'react'
 
 
-class UsersAPIComponent extends React.Component {
+class UsersAPIComponent extends Component {
 
     componentDidMount() {
         this.props.requestUsers(this.props.currentPage, this.props.pageSize)

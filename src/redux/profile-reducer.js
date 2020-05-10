@@ -3,6 +3,7 @@ import { usersAPI, profileAPI } from "../api/api"
 const ADD_POST = 'lightgram/profile/ADD-POST'
 const SET_USER_PROFILE = 'lightgram/profile/SET-USER-PROFILE'
 const SET_STATUS = 'lightgram/profile/SET-STATUS'
+const SAVE_PHOTO_SUCCESS = 'lightgram/profile/SAVE_PHOTO_SUCCESS'
 
 let initialState = {
     postsData: [
@@ -31,12 +32,13 @@ const profileReducer = (state = initialState, action) => {
             stateCopy.postsData.unshift(newPost)
             return stateCopy
         }
-        case SET_USER_PROFILE: {
+        case SET_USER_PROFILE: 
             return {...state, profile: action.profile}
-        }
-        case SET_STATUS: {
+        case SAVE_PHOTO_SUCCESS:
+            debugger
+            return {...state, profile: {...state.profile , photo: action.photo}}
+        case SET_STATUS: 
             return {...state, status: action.status}
-        }
         default:
             return state
     }
@@ -45,6 +47,7 @@ const profileReducer = (state = initialState, action) => {
 export const addPostActionCreater = (newPostText) => ({type: ADD_POST , newPostText})
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
 export const setStatus = (status) => ({type: SET_STATUS, status})
+export const savePhotoSuccess = (photos) => ({type: SAVE_PHOTO_SUCCESS, photos})
 
 export const getUserProfile = (userId) => async (dispatch) => {
     let response = await usersAPI.getProfile(userId)
@@ -58,6 +61,12 @@ export const updateStatus = (status) => async (dispatch) => {
     let response = await profileAPI.updateStatus(status)
         if(response.data.resultCode === 0) {
             dispatch(setStatus(status))
+        }
+}
+export const savePhoto = (file) => async (dispatch) => {
+    let response = await profileAPI.savePhoto(file)
+        if(response.data.resultCode === 0) {
+            dispatch(savePhotoSuccess(response.data.data.photos))
         }
 }
 

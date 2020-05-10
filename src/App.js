@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {Route, withRouter, HashRouter} from "react-router-dom"
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
@@ -10,14 +10,13 @@ import Preloader from './components/common/preloader/preloader'
 import store from './redux/redux-store'
 import UsersContainer from './components/Users/UsersContainer'
 import HeaderContainer from './components/Header/HeaderContainer' 
-import { Suspense } from 'react'
 import { withSuspense } from './hoc/withSuspense'
 
 const DialogsContainer = React.lazy(() => import ('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import ('./components/Profile/ProfileContainer'));
 
 
-class App extends React.Component {
+class App extends Component {
   
   componentDidMount(){
     this.props.initialazeApp()
@@ -46,8 +45,6 @@ const mapStateToProps = (state) => ({
   initialazed: state.app.initialazed
 })
 
-let AppContainer = compose(withRouter , connect(mapStateToProps , {initialazeApp}))(App)
-
 const MainApp = props => {
   return <HashRouter>
     <Provider store={store}>
@@ -55,5 +52,7 @@ const MainApp = props => {
     </Provider>
   </HashRouter>
 } 
+
+let AppContainer = compose(withRouter , connect(mapStateToProps , {initialazeApp}))(App)
 
 export default MainApp
