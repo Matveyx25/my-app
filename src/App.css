@@ -37,3 +37,8 @@ button{
   border: 2px solid rgba(0,0,0,0.1);
   margin-bottom: 20px;
 }
+.error__not-found{
+  font-size: 30px;
+  text-align: center;
+  margin-top: 50px;
+}

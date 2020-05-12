@@ -21,7 +21,7 @@ let AddNewPostFormRedux = reduxForm({form: "ProfileAddNewPostForm"})(AddNewPostF
 
 const MyPosts = React.memo(props => {
 
-    let postsElements = props.posts.map(p => <Post
+    let postsElements = props.posts.map(p => <Post key={p.id}
          message = {p.message} 
          likequantity = {p.likequantity}/>)
 
@@ -37,9 +37,9 @@ const MyPosts = React.memo(props => {
               {postsElements}
               </div>
         </div>
-    );
+    )
 })
 
 const maxLength10 = maxLengthCreator(30)
 
-export default MyPosts;
+export default MyPosts

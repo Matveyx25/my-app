@@ -10,7 +10,8 @@
 }
 .description{
     grid-column: 2;
-    grid-row: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
 }
 .description b{
     margin-right: 5px;
@@ -73,4 +74,18 @@ input.changeBtn{
     border-radius: 0;
     margin: 0;
     padding: 0;
+}
+.checkbox input{
+    display: inline-block;
+    width: max-content;
+    height: max-content;
+}
+.checkbox *{
+    display: inline-block;
+}
+.error{
+    padding: 5px;
+    color: rgb(255, 56, 56);
+    width: max-content;
+    margin-top: 10px;
 }

@@ -5,13 +5,19 @@ import HeaderBg from '../../../assets/img/Header.png'
 import avatar from '../../../assets/img/1521018917.png'
 import ProfileStatusWithHooks from './ProfileStatusWithHooks'
 import pen from '../../../assets/img/draw.png'
+import ProfileDataForm from './ProfileDataForm'
 
-const ProfileInfo = ({profile , savePhoto , status , updateStatus , isOwner}) => {
+const ProfileInfo = ({profile , savePhoto , status , updateStatus , isOwner , saveProfile}) => {
     let [editMode , setEditMode] = useState(false)
     
     if (!profile) {
         return <Preloader className={s.preloader} />
     }
+
+    const onSubmit = (formData) => {
+            saveProfile(formData).then(() =>
+             {setEditMode(false)})
+        }
 
     const onMainPhotoSelect = (e) => {
         if(e.target.files.length){
@@ -29,17 +35,15 @@ const ProfileInfo = ({profile , savePhoto , status , updateStatus , isOwner}) =>
                 <img src={profile.photos.large || avatar} />
                 {isOwner && <><input className={s.changeBtn} id={"changeBtn"} type={"file"} onChange={onMainPhotoSelect}/><label htmlFor={"changeBtn"} className={s.changeLabel}><img src={pen}/></label></>}
                 </div>
-                <div className={s.name}>
-                    {profile.fullName}
-                </div>
+                
                 <div className={s.description}>
-
-                <ProfileStatusWithHooks status={status}
-                 updateStatus={updateStatus} />
+                
                 {editMode ? 
-                <ProfileDataForm profile={profile}/> : 
+                <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/> : 
                 <ProfileData toEditMode={() => {setEditMode(true)}} onMainPhotoSelect={onMainPhotoSelect} isOwner={isOwner} profile={profile}/>}
-            </div>
+                 <ProfileStatusWithHooks status={status}
+                 updateStatus={updateStatus} />
+                 </div>
             </div>
         </div>
     );
@@ -48,6 +52,9 @@ const ProfileInfo = ({profile , savePhoto , status , updateStatus , isOwner}) =>
 const ProfileData = ({profile , toEditMode , isOwner}) => {
     return <div>
     {isOwner && <div><button onClick={toEditMode}>edit</button></div>}
+        <div className={s.name}>
+                    {profile.fullName}
+        </div>
         <div>
             <b>Looking for a job:</b> {profile.lookingForAJob ? "yes" : "no"}
         </div>
@@ -59,16 +66,10 @@ const ProfileData = ({profile , toEditMode , isOwner}) => {
             <b>About me:</b> {profile.aboutMe}
         </div>
         <div className={s.contacts}>
-            <b>Contacts: </b> {Object.keys(profile.contacts).map(k => {
+            <b>Contacts</b> {Object.keys(profile.contacts).map(k => {
                 return <Contact contactTitle={k} value={profile.contacts[k]} />
             })}
         </div>
-    </div>
-}
-
-const ProfileDataForm = ({profile}) => {
-    return <div>
-        Form
     </div>
 }
 

@@ -1,13 +1,13 @@
 import { usersAPI } from "../api/api"
 import { updateObjectInArray } from "../utils/objects-helpers"
 
-const FOLLOW = 'lightgram/users/FOLLOW'
-const UNFOLLOW = 'lightgram/users/UNFOLLOW'
-const SET_USERS = 'lightgram/users/SET_USERS'
-const SET_CURRENT_PAGE = 'lightgram/users/SET_CURRENT_PAGE'
-const SET_TOTAL_USERS_COUNT = 'lightgram/users/SET_TOTAL_USERS_COUNT'
-const TOGGLE_IS_FETCHING = 'lightgram/users/TOGGLE_IS_FETCHING'
-const TOGGLE_IS_FOLLOWING_PROGRESS = 'lightgram/users/TOGGLE_IS_FOLLOWING_PROGRESS'
+const FOLLOW = 'FOLLOW'
+const UNFOLLOW = 'UNFOLLOW'
+const SET_USERS = 'SET_USERS'
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
 
 let initialState = {
     users: [],
@@ -25,13 +25,12 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 users: updateObjectInArray(state.users, action.userId , "id" , {followed: true})
-            }
-        case UNFOLLOW:
+         }
+            case UNFOLLOW:
             return {
                 ...state,
                 users: updateObjectInArray(state.users, action.userId , "id" , {followed: false})
-
-            }
+                 }
         case SET_USERS:
             return { ...state, users: action.users }
         case SET_CURRENT_PAGE:
@@ -64,8 +63,8 @@ export const toggleFollowingProgress = (isFetching, userId) => ({ type: TOGGLE_I
 
 // THUNK
 
-const followUnfollow = async(dispatch , userId , apiMethod , actionCreator) => {
-    dispatch(toggleFollowingProgress(true, userId))
+const followUnfollow = async (dispatch , userId , apiMethod , actionCreator) => {
+        dispatch(toggleFollowingProgress(true, userId))
         let response = await apiMethod(userId)
         if (response.resultCode == 0) {
             dispatch(actionCreator(userId))
