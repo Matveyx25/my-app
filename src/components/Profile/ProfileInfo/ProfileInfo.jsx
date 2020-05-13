@@ -75,7 +75,7 @@ const ProfileData = ({profile , toEditMode , isOwner}) => {
 
 const Contact = ({ contactTitle, value }) => {
     return (
-        <div><b>{contactTitle}:</b>{value}</div>
+        <div>{!value || <div><b>{contactTitle}:</b>{value}</div>}</div>
     )
 }
 
